@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>QR Code Generator</title>
+</head>
+<body>
+  <h1>QR Code Generator</h1>
+  <input type="text" id="inputLink" placeholder="Insira o link">
+  <button onclick="generateQRCode()">Gerar QR Code</button>
+
+  <div id="qrcode-container" style="display: none;">
+    <img id="qrcode" alt="QR Code">
+  </div>
+  <button id="downloadBtn" onclick="downloadQRCode()">Download QR Code</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <script>
+    function generateQRCode() {
+      const inputLink = document.getElementById('inputLink').value;
+      const qrcodeContainer = document.getElementById('qrcode-container');
+      const qrcode = new QRious({
+        element: document.getElementById('qrcode'),
+        value: inputLink,
+        size: 300
+      });
+
+      // Exibindo o contêiner do QR Code
+      qrcodeContainer.style.display = 'block';
+
+      // Exibindo o botão de download
+      document.getElementById('downloadBtn').style.display = 'block';
+    }
+
+    function downloadQRCode() {
+      const qrcodeImage = document.getElementById('qrcode');
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = qrcodeImage.src;
+      downloadLink.download = 'qrcode.png';
+      downloadLink.click();
+    }
+  </script>
+</body>
+</html>
